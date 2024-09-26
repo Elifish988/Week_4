@@ -1,6 +1,8 @@
 import psycopg2
 from psycopg2 import pool
 
+
+
 connection_pool = psycopg2.pool.SimpleConnectionPool(
             minconn=1,
             maxconn=10,
@@ -19,3 +21,5 @@ def get_db_connection():
 
 def release_db_connection(conn):
     connection_pool.putconn(conn)
+
+

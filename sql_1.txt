@@ -1,0 +1,45 @@
+החישוב שהובא מטעמי נוחות לא כפונקציה
+
+
+SELECT
+    target_city,
+    air_force,
+    COUNT(*) AS attack_count
+FROM
+    mission
+WHERE
+    date_part('year', mission_date::date) = 1942
+  AND air_force IS NOT NULL                          -- דילוג על שורות בהן חיל האוויר ריק
+GROUP BY
+    target_city, air_force                             -- קיבוץ לפי עיר וחיל האוויר
+HAVING
+    air_force = (                                      -- בודק אם חיל האוויר הוא התדיר ביותר בעיר
+        SELECT MAX(air_force)
+        FROM mission
+        WHERE date_part('year', mission_date::date) = 1942  -- משימות בשנת 1942
+          AND target_city = mission.target_city
+    )
+ORDER BY
+    target_city;
+
+
+
+זמן הריצה שלו
+
+Planning Time: 0.164 ms
+Execution Time: 74.235 ms
+
+
+כיצד לאנדקס אותו נכון?
+
+יצרתי את השורה הבאה
+CREATE INDEX idx_year_air_force_city ON mission(mission_date, air_force, target_city);
+ וזו הייתה התוצאה
+
+ Planning Time: 1.316 ms
+Execution Time: 50.959 ms
+ זו הדרך הכי מהירה ויעילה
+
+
+
+

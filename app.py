@@ -1,16 +1,22 @@
 from flask import Flask
-import logging
+from bp.bp_1 import bp_1_bp
 from db import connection_pool
-# חיבורי בלו פרינט
-# from postgres_proj.bp.admin import admin_bp
-# from postgres_proj.bp.worker import worker_bp
+
 
 
 app = Flask(__name__)
 
+
+# יצירת הדאטה בייס
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///postgres:admin@localhost:5432/missions_wwii'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+
+
 # חיבורי בלו פרינט
-# app.register_blueprint(admin_bp, url_prefix="/admin")
-# app.register_blueprint(worker_bp, url_prefix="/worker")
+app.register_blueprint(bp_1_bp)
+
+
 
 
 # Closing the connection pool when app shuts down
