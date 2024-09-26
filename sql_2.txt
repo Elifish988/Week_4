@@ -1,0 +1,8 @@
+SELECT "Target Country", max("Bomb Damage Assessment")
+FROM operations
+WHERE CAST("Airborne Aircraft" AS NUMERIC) > 5 AND "Bomb Damage Assessment" IS NOT NULL
+GROUP BY "Target Country
+
+
+create index idx_airborne_numeric on operations (CAST("Airborne Aircraft" AS NUMERIC))
+זה האינדקס היעיל ביותר!
