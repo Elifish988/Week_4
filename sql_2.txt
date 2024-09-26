@@ -1,7 +1,7 @@
-SELECT "Target Country", max("Bomb Damage Assessment")
+SELECT target_country", max(bomb_damage_assessment")
 FROM operations
-WHERE CAST("Airborne Aircraft" AS NUMERIC) > 5 AND "Bomb Damage Assessment" IS NOT NULL
-GROUP BY "Target Country
+WHERE CAST(airborne_aircraft" AS NUMERIC) > 5 AND bomb_damage_assessment" IS NOT NULL
+GROUP BY target_country
 
 
 create index idx_airborne_numeric on operations (CAST("Airborne Aircraft" AS NUMERIC))
