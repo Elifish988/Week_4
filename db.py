@@ -1,6 +1,6 @@
 import psycopg2
 from psycopg2 import pool
-
+from flask_sqlalchemy import SQLAlchemy
 
 
 connection_pool = psycopg2.pool.SimpleConnectionPool(
@@ -22,4 +22,7 @@ def get_db_connection():
 def release_db_connection(conn):
     connection_pool.putconn(conn)
 
+
+
+db = SQLAlchemy()
 
